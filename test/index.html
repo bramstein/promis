@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Promise to pass all tests</title>
+    <meta charset="utf-8">
+    <link href="../node_modules/mocha/mocha.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <script>CLOSURE_NO_DEPS = true;</script>
+    <script src="../src/base.js"></script>
+    <script src="../src/promise.js"></script>
+    <script src="../node_modules/expect.js/index.js"></script>
+    <script src="../node_modules/mocha/mocha.js"></script>
+
+    <script src="./promise-test.js"></script>
+
+    <script>
+      goog.require('lang.Promise');
+      mocha.ui('bdd');
+
+      window.onload = function () {
+        mocha.run()
+      };
+    </script>
+  </body>
+</html>
