@@ -7,8 +7,6 @@
     "test": "test"
   },
   "dependencies": {
-    "promises-aplus-tests": "~2.0.4",
-    "expect.js": "~0.3.1"
   },
   "devDependencies": {
     "mocha": "~1.18.2",
@@ -17,12 +15,13 @@
     "grunt-closurecompiler": "^0.9.9",
     "extend": "^1.2.1",
     "grunt-contrib-concat": "^0.4.0",
-    "grunt-exec": "^0.4.5"
+    "grunt-exec": "^0.4.5",
+    "promises-aplus-tests": "~2.0.4",
+    "expect.js": "~0.3.1"
   },
   "scripts": {
-    "test": "cat adapters/window.js src/base.js adapters/lang.js src/promise.js adapters/adapter.js > test/node-promise-test.js && promises-aplus-tests test/node-promise-test.js",
-    "test-compiled": "grunt compile && cat adapters/window.js build/promise.js adapters/adapter.compiled.js > test/node-promise-test.js && promises-aplus-tests test/node-promise-test.js",
-    "t": "promises-aplus-tests test/node-promise-test.js"
+    "test": "cat adapters/ns.js src/base.js src/promise.js adapters/adapter.compiled.js > test/node-promise-test.js && promises-aplus-tests test/node-promise-test.js",
+    "test-compiled": "grunt compile && cat adapters/ns.js build/promise.js adapters/adapter.compiled.js > test/node-promise-test.js && promises-aplus-tests test/node-promise-test.js"
   },
   "author": "Bram Stein",
   "license": "BSD"
