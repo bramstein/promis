@@ -20,8 +20,9 @@
     "expect.js": "~0.3.1"
   },
   "scripts": {
-    "test": "cat adapters/ns.js src/base.js src/promise.js adapters/adapter.js > test/node-promise-test.js && promises-aplus-tests test/node-promise-test.js",
-    "test-compiled": "grunt compile && cat adapters/ns.js build/promise.js adapters/adapter.js > test/node-promise-test.js && promises-aplus-tests test/node-promise-test.js"
+    "pretest": "mkdir -p build",
+    "test": "cat adapters/ns.js src/base.js src/promise.js adapters/adapter.js > build/promise.test.js && promises-aplus-tests build/promise.test.js",
+    "test-compiled": "grunt compile && cat adapters/ns.js build/promise.js adapters/adapter.js > test/promise.test.js && promises-aplus-tests test/promise.test.js"
   },
   "author": "Bram Stein",
   "license": "BSD"
