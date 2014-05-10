@@ -12,6 +12,21 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     clean: ['build'],
+    mochaTest: {
+      test: {
+        src: ['test/**/*.js']
+      }
+    },
+    concat: {
+      test: {
+        src: ['adapters/ns.js', 'src/base.js', 'src/promise.js', 'adapters/adapter.js'],
+        dest: 'build/promise.test.js'
+      },
+      test_compiled: {
+        src: ['adapters/ns.js', 'build/promise.js', 'adapters/adapter.js'],
+        dest: 'build/promise.test.js'
+      }
+    },
     closurecompiler: {
       compile: {
         files: {
@@ -37,8 +52,10 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-exec');
+  grunt.loadNpmTasks('grunt-mocha-test');
 
   grunt.registerTask('compile', ['closurecompiler:compile']);
   grunt.registerTask('debug', ['closurecompiler:debug']);
   grunt.registerTask('default', ['compile']);
+  grunt.registerTask('test', grunt.option('compiled') ? ['compile', 'concat:test_compiled', 'mochaTest'] : ['concat:test', 'mochaTest']);
 };

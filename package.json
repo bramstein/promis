@@ -6,8 +6,7 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "mocha": "~1.18.2",
     "grunt": "^0.4.4",
@@ -17,12 +16,11 @@
     "grunt-contrib-concat": "^0.4.0",
     "grunt-exec": "^0.4.5",
     "promises-aplus-tests": "~2.0.4",
-    "expect.js": "~0.3.1"
+    "expect.js": "~0.3.1",
+    "grunt-mocha-test": "^0.10.2"
   },
   "scripts": {
-    "pretest": "mkdir -p build",
-    "test": "cat adapters/ns.js src/base.js src/promise.js adapters/adapter.js > build/promise.test.js && promises-aplus-tests build/promise.test.js",
-    "test-compiled": "grunt compile && cat adapters/ns.js build/promise.js adapters/adapter.js > test/promise.test.js && promises-aplus-tests test/promise.test.js"
+    "test": "grunt test"
   },
   "author": "Bram Stein",
   "license": "BSD"
