@@ -3,6 +3,9 @@ goog.provide('lang.Promise');
 goog.scope(function () {
 
   /**
+   * Create a new Promise.
+   *
+   * @param {function(function(*),function(*))} executor
    * @constructor
    */
   lang.Promise = function Promise(executor) {
