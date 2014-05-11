@@ -18,5 +18,6 @@ module.exports = {
       resolve: resolver,
       reject: rejector
     };
-  }
+  },
+  Promise: window.Promise
 };
