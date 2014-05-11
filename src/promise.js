@@ -7,13 +7,13 @@ goog.scope(function () {
    */
   lang.Promise = function Promise(executor) {
     this.state = lang.Promise.State.PENDING;
-	  this.value = undefined;
+    this.value = undefined;
     this.deferred = [];
 
     var promise = this;
 
-	  try {
-	  	executor(function(x) {
+    try {
+      executor(function(x) {
         promise.resolve(x);
       }, function (r) {
         promise.reject(r);
@@ -21,7 +21,7 @@ goog.scope(function () {
     } catch (e) {
       promise.reject(e);
     }
-	};
+  };
 
   /**
    * @private
@@ -62,7 +62,7 @@ goog.scope(function () {
    * @param {*} x The value to resolve the Promise with.
    * @private
    */
-	Promise.prototype.resolve = function resolve(x) {
+  Promise.prototype.resolve = function resolve(x) {
     var promise = this;
 
     if (promise.state === Promise.State.PENDING) {
@@ -95,18 +95,18 @@ goog.scope(function () {
         }
         return;
       }
-		  promise.state = Promise.State.RESOLVED;
-		  promise.value = x;
+      promise.state = Promise.State.RESOLVED;
+      promise.value = x;
       promise.notify();
     }
-	};
+  };
 
   /**
    * Reject this Promise.
    * @private
    * @param {*} reason The reason for rejection.
    */
-	Promise.prototype.reject = function reject(reason) {
+  Promise.prototype.reject = function reject(reason) {
     var promise = this;
 
     if (promise.state === Promise.State.PENDING) {
@@ -115,16 +115,16 @@ goog.scope(function () {
       }
 
       promise.state = Promise.State.REJECTED;
-		  promise.value = reason;
+      promise.value = reason;
       promise.notify();
     }
-	};
+  };
 
   /**
    * Notify all handlers of a change in state.
    * @private
    */
-	Promise.prototype.notify = function notify() {
+  Promise.prototype.notify = function notify() {
     var promise = this;
 
     setTimeout(function () {
@@ -163,14 +163,14 @@ goog.scope(function () {
    * @param {function(*):*=} onRejected Called when this Promise is rejected.
    * @return {!lang.Promise}
    */
-	Promise.prototype.then = function then(onResolved, onRejected) {
-		var promise = this;
+  Promise.prototype.then = function then(onResolved, onRejected) {
+    var promise = this;
 
     return new Promise(function (resolve, reject) {
       promise.deferred.push([onResolved, onRejected, resolve, reject]);
       promise.notify();
     });
-	};
+  };
 });
 
 window['Promise'] = lang.Promise;
