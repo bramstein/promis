@@ -116,6 +116,32 @@ describe('Promise', function () {
   });
 
   describe('#catch', function () {
+    it('has a a `catch` method', function () {
+      expect(new Promise(function () {}).catch).to.be.a('function');
+    });
+
+    it('is not called when the promise is resolved', function (done) {
+      var catchCalled = false;
+
+      new Promise(function (resolve, reject) {
+        resolve('hello');
+      }).catch(function () {
+        catchCalled = true;
+      }).then(function (x) {
+        expect(x).to.eql('hello');
+        expect(catchCalled).to.be(false);
+        done();
+      });
+    });
+
+    it('is called when the promise is rejected', function (done) {
+      new Promise(function (resolve, reject) {
+        reject('bye');
+      }).catch(function (r) {
+        expect(r).to.eql('bye');
+        done();
+      });
+    });
   });
 
   describe('#toString', function () {

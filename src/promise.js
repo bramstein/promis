@@ -159,6 +159,14 @@ goog.scope(function () {
   };
 
   /**
+   * @param {function(*):*} onRejected Called when this Promise is rejected.
+   * @return {!lang.Promise}
+   */
+  Promise.prototype.catch = function (onRejected) {
+    return this.then(undefined, onRejected);
+  };
+
+  /**
    * @param {function(*):*=} onResolved Called when this Promise is resolved.
    * @param {function(*):*=} onRejected Called when this Promise is rejected.
    * @return {!lang.Promise}
@@ -177,3 +185,4 @@ window['Promise'] = lang.Promise;
 window['Promise']['resolve'] = lang.Promise.resolve;
 window['Promise']['reject'] = lang.Promise.reject;
 window['Promise']['prototype']['then'] = lang.Promise.prototype.then;
+window['Promise']['prototype']['catch'] = lang.Promise.prototype.catch;
