@@ -205,5 +205,36 @@ describe('Promise', function () {
   });
 
   describe('all', function () {
+    it('should resolve all with zero promises', function (done) {
+      Promise.all([]).then(function (x) {
+        expect(x).to.eql([]);
+        done();
+      });
+    });
+
+    it('returns all resolved promises', function (done) {
+      Promise.all([Promise.resolve('hello'), Promise.resolve('world')]).then(function (x) {
+        expect(x).to.eql(['hello', 'world']);
+        done();
+      });
+    });
+
+    it('rejects the promise if one of all is rejected', function (done) {
+      Promise.all([Promise.resolve('hello'), Promise.reject('bye')]).then(function () {}, function (r) {
+        expect(r).to.eql('bye');
+        done();
+      });
+    });
+
+    it('returns all promises in order with delays', function (done) {
+      Promise.all([new Promise(function (resolve) {
+        setTimeout(function () {
+          resolve('hello');
+        }, 50);
+      }), Promise.resolve('world')]).then(function (x) {
+        expect(x).to.eql(['hello', 'world']);
+        done();
+      });
+    });
   });
 });

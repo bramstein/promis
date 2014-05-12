@@ -188,10 +188,33 @@ goog.scope(function () {
   };
 
   /**
-   * @param {...lang.Promise} var_args
+   * @param {Array.<!lang.Promise>} iterable
    * @return {!lang.Promise}
    */
-  Promise.all = function all(var_args) {
+  Promise.all = function all(iterable) {
+    return new Promise(function (resolve, reject) {
+      var count = 0,
+          result = [];
+
+      if (iterable.length === 0) {
+        resolve(result);
+      }
+
+      function resolver(i) {
+        return function (x) {
+          result[i] = x;
+          count += 1;
+
+          if (count === iterable.length) {
+            resolve(result);
+          }
+        };
+      }
+
+      for (var i = 0; i < iterable.length; i += 1) {
+        iterable[i].then(resolver(i), reject);
+      }
+    });
   };
 
   /**
@@ -211,5 +234,6 @@ window['Promise'] = lang.Promise;
 window['Promise']['resolve'] = lang.Promise.resolve;
 window['Promise']['reject'] = lang.Promise.reject;
 window['Promise']['race'] = lang.Promise.race;
+window['Promise']['all'] = lang.Promise.all;
 window['Promise']['prototype']['then'] = lang.Promise.prototype.then;
 window['Promise']['prototype']['catch'] = lang.Promise.prototype.catch;
