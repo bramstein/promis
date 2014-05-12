@@ -144,10 +144,64 @@ describe('Promise', function () {
     });
   });
 
-  describe('#toString', function () {
-  });
-
   describe('race', function () {
+    it('should race a single resolved promise', function (done) {
+      Promise.race([Promise.resolve('hello')]).then(function (x) {
+        expect(x).to.eql('hello');
+        done();
+      });
+    });
+
+    it('should race a single rejected promise', function (done) {
+      Promise.race([Promise.reject('bye')]).then(function () {}, function (r) {
+        expect(r).to.eql('bye');
+        done();
+      });
+    });
+
+    it('should race two resolved promises', function (done) {
+      Promise.race([Promise.resolve('hello'), Promise.resolve('world')]).then(function (x) {
+        expect(x).to.eql('hello');
+        done();
+      });
+    });
+
+    it('should race one delayed and one resolved promise', function (done) {
+      Promise.race([new Promise(function (resolve) {
+        setTimeout(function () {
+          resolve('hello');
+        }, 50);
+      }), Promise.resolve('world')]).then(function (x) {
+        expect(x).to.eql('world');
+        done();
+      });
+    });
+
+    it('should race one delayed and one rejected promise', function (done) {
+      Promise.race([new Promise(function (resolve) {
+        setTimeout(function () {
+          resolve('hello');
+        }, 50);
+      }), Promise.reject('bye')]).then(function () {}, function (x) {
+        expect(x).to.eql('bye');
+        done();
+      });
+    });
+
+    it('should race two delayed promises', function (done) {
+      Promise.race([new Promise(function (resolve) {
+        setTimeout(function () {
+          resolve('hello');
+        }, 100);
+      }), new Promise(function (resolve) {
+        setTimeout(function () {
+          resolve('world');
+        }, 50);
+      })]).then(function (x) {
+        expect(x).to.eql('world');
+        done();
+      });
+    });
   });
 
   describe('all', function () {

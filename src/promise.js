@@ -9,6 +9,10 @@ goog.scope(function () {
    * @constructor
    */
   lang.Promise = function Promise(executor) {
+    /**
+     * @private
+     * @type {lang.Promise.State}
+     */
     this.state = lang.Promise.State.PENDING;
     this.value = undefined;
     this.deferred = [];
@@ -182,10 +186,30 @@ goog.scope(function () {
       promise.notify();
     });
   };
+
+  /**
+   * @param {...lang.Promise} var_args
+   * @return {!lang.Promise}
+   */
+  Promise.all = function all(var_args) {
+  };
+
+  /**
+   * @param {Array.<!lang.Promise>} iterable
+   * @return {!lang.Promise}
+   */
+  Promise.race = function race(iterable) {
+    return new Promise(function (resolve, reject) {
+      for (var i = 0; i < iterable.length; i += 1) {
+        iterable[i].then(resolve, reject);
+      }
+    });
+  };
 });
 
 window['Promise'] = lang.Promise;
 window['Promise']['resolve'] = lang.Promise.resolve;
 window['Promise']['reject'] = lang.Promise.reject;
+window['Promise']['race'] = lang.Promise.race;
 window['Promise']['prototype']['then'] = lang.Promise.prototype.then;
 window['Promise']['prototype']['catch'] = lang.Promise.prototype.catch;
