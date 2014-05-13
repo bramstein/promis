@@ -1,7 +1,6 @@
 goog.provide('lang.Promise');
 
 goog.scope(function () {
-
   /**
    * Create a new Promise.
    *
