@@ -46,6 +46,16 @@ module.exports = function (grunt) {
           formatting: ['PRETTY_PRINT', 'PRINT_INPUT_DELIMITER']
         })
       }
+    },
+    copy: {
+      dist: {
+        files: [
+          {
+            src: ['build/promise.js'],
+            dest: 'promise.min.js'
+          }
+        ]
+      }
     }
   });
 
@@ -54,9 +64,11 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   grunt.registerTask('compile', ['closurecompiler:compile']);
   grunt.registerTask('debug', ['closurecompiler:debug']);
   grunt.registerTask('default', ['compile']);
   grunt.registerTask('test', grunt.option('compiled') ? ['compile', 'concat:test_compiled', 'mochaTest'] : ['concat:test', 'mochaTest']);
+  grunt.registerTask('dist', ['compile', 'copy']);
 };
