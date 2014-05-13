@@ -1,11 +1,8 @@
 {
   "name": "promise",
   "version": "0.0.1",
-  "description": "A Promise",
-  "main": "test.js",
-  "directories": {
-    "test": "test"
-  },
+  "description": "A tiny JavaScript Promise polyfill",
+  "main": "src/promise.js",
   "dependencies": {},
   "devDependencies": {
     "mocha": "~1.18.2",
@@ -22,6 +19,6 @@
   "scripts": {
     "test": "grunt test"
   },
-  "author": "Bram Stein",
+  "author": "Bram Stein <b.l.stein@gmail.com> (http://www.bramstein.com)",
   "license": "BSD"
 }
