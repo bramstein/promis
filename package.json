@@ -1,6 +1,6 @@
 {
-  "name": "promise",
-  "version": "0.0.1",
+  "name": "promis",
+  "version": "1.0.0",
   "description": "A tiny JavaScript Promise polyfill",
   "main": "src/promise.js",
   "dependencies": {},
@@ -17,8 +17,14 @@
     "grunt-mocha-test": "^0.10.2",
     "grunt-contrib-copy": "^0.5.0"
   },
+  "keywords: ["promise", "promises", "promise-aplus", "promises-aplus", "closure compiler", "async", "deferred", "await", "defer"]
   "scripts": {
     "test": "grunt test"
+  },
+  "homepage": "https://github.com/bramstein/promis",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:bramstein/promis.git"
   },
   "author": "Bram Stein <b.l.stein@gmail.com> (http://www.bramstein.com)",
   "license": "BSD"
