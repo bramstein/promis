@@ -1,7 +1,7 @@
 {
   "name": "promis",
   "version": "1.0.0",
-  "description": "A tiny JavaScript Promise polyfill",
+  "description": "A small embeddable Promise polyfill",
   "main": "src/promise.js",
   "dependencies": {},
   "devDependencies": {
