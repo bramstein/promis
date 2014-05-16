@@ -17,7 +17,7 @@
     "grunt-mocha-test": "^0.10.2",
     "grunt-contrib-copy": "^0.5.0"
   },
-  "keywords: ["promise", "promises", "promise-aplus", "promises-aplus", "closure compiler", "async", "deferred", "await", "defer"]
+  "keywords": ["promise", "promises", "promise-aplus", "promises-aplus", "closure compiler", "async", "deferred", "await", "defer"],
   "scripts": {
     "test": "grunt test"
   },
