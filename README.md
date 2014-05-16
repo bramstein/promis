@@ -4,7 +4,7 @@
 
 ## Promis: a tiny JavaScript Promise polyfill
 
-This is a tiny (0.6kb minified, 1.5kb unminified) Promise implementation meant for embedding in other projects and as a standalone polyfill. It supports the full API specification and passes the official Promises/A+ test suite.
+This is a tiny (0.6kb gzipped, 1.5kb minified) Promise implementation meant for embedding in other projects and as a standalone polyfill. It supports the full Promise API specification and passes the official Promises/A+ test suite.
 
 ### API
 
@@ -16,7 +16,7 @@ var promise = new Promise(function (resolve, reject) {
 });
 ```
 
-Instances of a Promise have two methods available `then` and `catch`. The `then` method is used to add callbacks for when the promise is resolved or rejected.
+Instances of a Promise have two methods available: `then` and `catch`. The `then` method is used to add callbacks for when the promise is resolved or rejected.
 
 ```javascript
 promise.then(function (x) {
@@ -43,7 +43,7 @@ var resolved = Promise.resolve('hello');
 var rejected = Promise.reject('bye');
 ```
 
-The `race` method can be used to "race" two or more promises against each other. The returned promises is settled with the result of the first promise that is settled.
+The `race` method can be used to "race" two or more promises against each other. The returned promises is settled with the result of the first promise that settles.
 
 ```javascript
 // first will be resolved with 'hello'
@@ -54,7 +54,7 @@ var first = Promise.race([new Promise(function (resolve) {
 }), Promise.resolve('hello')]);
 ```
 
-The `all` method waits for all promises given to it to resolve and then settles the promise with the result of all of them.
+The `all` method waits for all promises given to it to resolve and then resolves the promise with the result of all of them.
 
 ```javascript
 // all is settles with ['hello', 'world']
@@ -69,7 +69,7 @@ Use the `grunt test` task to run all the tests. You can optionally pass the `--c
 
 ### Embedding
 
-This implementation uses the Closure Compiler's advanced optimization mode to make the resulting file size as small as possible. If you want to embed this library into your project you can also benefit from the Closure Compiler's dead code elimination to remove methods that you are not using. If you want to use Promis this way, you'll need to copy `src/promise.js` into your project and `goog.require` it. Unlike the standalone file, the `src/promise.js` file by itself does not export anything to the global namespace. Instead you should the `lang.Promise` namespace to instantiate a Promise.
+This implementation uses Closure Compiler's advanced optimization mode to make the resulting file size as small as possible. If you want to embed this library into your project you can also benefit from Closure Compiler's dead code elimination to remove methods that you are not using. If you want to use Promis this way, you'll need to copy `src/promise.js` into your project and `goog.require` the implementation. Unlike the [standalone file](promise.min.js), the `src/promise.js` file by itself does not export anything to the global namespace. Instead you should the `lang.Promise` namespace to instantiate a Promise.
 
 ```javascript
 goog.require('lang.Promise');
