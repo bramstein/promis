@@ -1,10 +1,10 @@
-## Promis: a tiny JavaScript Promise polyfill
-
-This is a tiny (0.6kb minified, 1.5kb unminified) Promise implementation meant for embedding in other projects and as a standalone polyfill. It supports the full API specification and passes the official Promises/A+ test suite.
-
 <a href="http://promisesaplus.com/">
   <img src="http://promisesaplus.com/assets/logo-small.png" alt="Promises/A+ logo" title="Promises/A+ 1.0 compliant" align="right" />
 </a>
+
+## Promis: a tiny JavaScript Promise polyfill
+
+This is a tiny (0.6kb minified, 1.5kb unminified) Promise implementation meant for embedding in other projects and as a standalone polyfill. It supports the full API specification and passes the official Promises/A+ test suite.
 
 ### API
 
