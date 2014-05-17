@@ -202,6 +202,13 @@ describe('Promise', function () {
         done();
       });
     });
+
+    it('converts a non-promise to a promise', function (done) {
+      Promise.race(['hello', Promise.resolve('world')]).then(function (x) {
+        expect(x).to.eql('hello');
+        done();
+      });
+    });
   });
 
   describe('all', function () {
@@ -232,6 +239,13 @@ describe('Promise', function () {
           resolve('hello');
         }, 50);
       }), Promise.resolve('world')]).then(function (x) {
+        expect(x).to.eql(['hello', 'world']);
+        done();
+      });
+    });
+
+    it('converts a non-promise to a promise', function (done) {
+      Promise.all(['hello', Promise.resolve('world')]).then(function (x) {
         expect(x).to.eql(['hello', 'world']);
         done();
       });
