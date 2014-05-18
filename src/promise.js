@@ -76,9 +76,10 @@ goog.scope(function () {
         throw new TypeError('Promise resolved with itself.');
       }
 
+      var called = false;
+
       try {
-        var then = x && x['then'],
-            called = false;
+        var then = x && x['then'];
 
         if (x !== null && typeof x === 'object' && typeof then === 'function') {
           then.call(x, function (x) {
