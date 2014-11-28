@@ -52,7 +52,7 @@ module.exports = function (grunt) {
         files: [
           {
             src: ['build/promise.js'],
-            dest: 'promise.min.js'
+            dest: 'promise.js'
           }
         ]
       }
