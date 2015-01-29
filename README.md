@@ -4,7 +4,7 @@
 
 ## Promis: a small embeddable Promise polyfill
 
-This is a tiny (0.6kb gzipped, 1.5kb minified) Promise implementation meant for embedding in other projects and use as a standalone polyfill. It supports the full Promise API specification and passes the official Promises/A+ test suite.
+This is a tiny (0.6KB gzipped, 1.5KB minified) Promise implementation meant for embedding in other projects and use as a standalone polyfill. It supports the full Promise API specification and passes the official Promises/A+ test suite.
 
 ### API
 
@@ -69,7 +69,7 @@ Use the `grunt test` task to run all the tests. You can optionally pass the `--c
 
 ### Embedding
 
-This implementation uses Closure Compiler's advanced optimization mode to make the resulting file size as small as possible. If you want to embed this library into your project you can also benefit from Closure Compiler's dead code elimination to remove methods that you are not using. If you want to use Promis this way, you'll need to copy `src/promise.js` into your project and `goog.require` the implementation. Unlike the [standalone file](promise.min.js), the `src/promise.js` file by itself does not export anything to the global namespace. Instead you should the `lang.Promise` namespace to instantiate a Promise.
+This implementation uses Closure Compiler's advanced optimization mode to make the resulting file size as small as possible. If you want to embed this library into your project you can also benefit from Closure Compiler's dead code elimination to remove methods that you are not using. If you want to use Promis this way, you'll need to copy `src/promise.js` into your project and `goog.require` the implementation. Unlike the [standalone file](promise.js), the `src/promise.js` file by itself does not export anything to the global namespace. Instead you should require the `lang.Promise` namespace to instantiate a Promise.
 
 ```javascript
 goog.require('lang.Promise');
@@ -83,4 +83,5 @@ var promise = new lang.Promise(function (resolve, reject) {
 
 ### License
 
-Licensed under the [BSD license](LICENSE). Copyright 2014 - Bram Stein. All rights reserved.
+Licensed under the [BSD license](LICENSE).
+Copyright 2014 - Bram Stein. All rights reserved.
