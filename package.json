@@ -15,7 +15,8 @@
     "promises-aplus-tests": "~2.0.4",
     "expect.js": "~0.3.1",
     "grunt-mocha-test": "^0.10.2",
-    "grunt-contrib-copy": "^0.5.0"
+    "grunt-contrib-copy": "^0.5.0",
+    "load-grunt-tasks": "^3.0.0"
   },
   "keywords": ["promise", "promises", "promise-aplus", "promises-aplus", "closure compiler", "async", "deferred", "await", "defer"],
   "scripts": {
