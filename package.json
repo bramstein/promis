@@ -37,6 +37,7 @@
     "type": "git",
     "url": "git@github.com:bramstein/promis.git"
   },
+  "bugs": "https://github.com/bramstein/promis/issues",
   "author": "Bram Stein <b.l.stein@gmail.com> (http://www.bramstein.com)",
   "license": "BSD"
 }
