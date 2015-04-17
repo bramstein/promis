@@ -59,12 +59,7 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-closurecompiler');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-exec');
-  grunt.loadNpmTasks('grunt-mocha-test');
-  grunt.loadNpmTasks('grunt-contrib-copy');
+  require('load-grunt-tasks')(grunt);
 
   grunt.registerTask('compile', ['closurecompiler:compile']);
   grunt.registerTask('debug', ['closurecompiler:debug']);
