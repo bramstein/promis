@@ -73,7 +73,7 @@ goog.scope(function () {
 
     if (promise.state === Promise.State.PENDING) {
       if (x === promise) {
-        throw new TypeError('Promise resolved with itself.');
+        throw new TypeError('Promise settled with itself.');
       }
 
       var called = false;
@@ -118,7 +118,7 @@ goog.scope(function () {
 
     if (promise.state === Promise.State.PENDING) {
       if (reason === promise) {
-        throw new TypeError('Promise rejected with itself.');
+        throw new TypeError('Promise settled with itself.');
       }
 
       promise.state = Promise.State.REJECTED;
