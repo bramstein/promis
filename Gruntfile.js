@@ -20,7 +20,7 @@ module.exports = function (grunt) {
     },
     concat: {
       test: {
-        src: ['adapters/ns.js', 'vendor/google/base.js', 'src/promise.js', 'src/polyfill.js', 'adapters/adapter.js'],
+        src: ['adapters/ns.js', 'vendor/google/base.js', 'src/promise.js', 'polyfill.js', 'adapters/adapter.js'],
         dest: 'build/promise.test.js'
       },
       test_compiled: {
@@ -31,13 +31,13 @@ module.exports = function (grunt) {
     closurecompiler: {
       compile: {
         files: {
-          'build/promise.js': ['src/**/*.js']
+          'build/promise.js': ['src/**/*.js', 'polyfill.js']
         },
         options: extend({}, compilerOptions)
       },
       debug: {
         files: {
-          'build/promise.debug.js': ['src/**/*.js']
+          'build/promise.debug.js': ['src/**/*.js', 'polyfill.js']
         },
         options: extend({}, compilerOptions, {
           debug: true,
