@@ -244,9 +244,9 @@ goog.scope(function () {
     lang.Promise.prototype.then = lang.PromiseImpl.prototype.then;
     lang.Promise.prototype.catch = lang.PromiseImpl.prototype.catch;
 
-    lang.Promise.all = lang.PromiseImpl.prototype.all;
-    lang.Promise.race = lang.PromiseImpl.prototype.race;
-    lang.Promise.resolve = lang.PromiseImpl.prototype.resolve;
-    lang.Promise.reject = lang.PromiseImpl.prototype.reject;
+    lang.Promise.all = lang.PromiseImpl.all;
+    lang.Promise.race = lang.PromiseImpl.race;
+    lang.Promise.resolve = lang.PromiseImpl.resolve;
+    lang.Promise.reject = lang.PromiseImpl.reject;
   }
 });
