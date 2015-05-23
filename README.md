@@ -4,7 +4,7 @@
 
 ## Promis: a small embeddable Promise polyfill
 
-This is a tiny (0.6KB gzipped, 1.5KB minified) Promise implementation meant for embedding in other projects and use as a standalone polyfill. It supports the full Promise API specification and passes the official Promises/A+ test suite.
+This is a tiny (0.8KB gzipped, 1.9KB minified) Promise implementation meant for embedding in other projects and use as a standalone polyfill. It supports the full Promise API specification and passes the official Promises/A+ test suite.
 
 ### API
 
