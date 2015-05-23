@@ -7,7 +7,8 @@ module.exports = function (grunt) {
     summary_detail_level: 3,
     language_in: 'ECMASCRIPT5_STRICT',
     output_wrapper: '(function(){%output%}());',
-    use_types_for_optimization: true
+    use_types_for_optimization: true,
+    define: ['USE_AS_LIB=false']
   };
 
   grunt.initConfig({

@@ -232,8 +232,18 @@ goog.scope(function () {
       }
     });
   };
+});
 
-  // Export the polyfill
+
+/**
+ * Set this to false if you're not using
+ * Promis as a library with Closure Compiler.
+ *
+ * @define {boolean}
+ */
+var USE_AS_LIB = true;
+
+if (USE_AS_LIB) {
   if (window['Promise']) {
     lang.Promise = window['Promise'];
     lang.Promise.prototype.then = window['Promise']['prototype']['then'];
@@ -253,4 +263,4 @@ goog.scope(function () {
     lang.Promise.resolve = lang.PromiseImpl.resolve;
     lang.Promise.reject = lang.PromiseImpl.reject;
   }
-});
+}
