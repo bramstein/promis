@@ -1,6 +1,10 @@
 goog.provide('lang.Promise');
 
+goog.require('lang.async');
+
 goog.scope(function () {
+  var async = lang.async;
+
   /**
    * Create a new Promise.
    *
@@ -134,7 +138,7 @@ goog.scope(function () {
   PromiseImpl.prototype.notify = function notify() {
     var promise = this;
 
-    setTimeout(function () {
+    async(function () {
       if (promise.state !== PromiseImpl.State.PENDING) {
         while (promise.deferred.length) {
           var deferred = promise.deferred.shift(),
@@ -162,7 +166,7 @@ goog.scope(function () {
           }
         }
       }
-    }, 0);
+    });
   };
 
   /**

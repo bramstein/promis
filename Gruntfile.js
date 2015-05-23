@@ -20,7 +20,7 @@ module.exports = function (grunt) {
     },
     concat: {
       test: {
-        src: ['adapters/ns.js', 'vendor/google/base.js', 'src/promise.js', 'polyfill.js', 'adapters/adapter.js'],
+        src: ['adapters/ns.js', 'vendor/google/base.js', 'src/async.js', 'src/promise.js', 'polyfill.js', 'adapters/adapter.js'],
         dest: 'build/promise.test.js'
       },
       test_compiled: {
