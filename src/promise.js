@@ -173,7 +173,7 @@ goog.scope(function () {
    * @param {function(*):*} onRejected Called when this Promise is rejected.
    * @return {!lang.PromiseImpl}
    */
-  PromiseImpl.prototype.catch = function (onRejected) {
+  PromiseImpl.prototype['catch'] = function (onRejected) {
     return this.then(undefined, onRejected);
   };
 
@@ -247,7 +247,7 @@ if (USE_AS_LIB) {
   if (window['Promise']) {
     lang.Promise = window['Promise'];
     lang.Promise.prototype.then = window['Promise']['prototype']['then'];
-    lang.Promise.prototype.catch = window['Promise']['prototype']['catch'];
+    lang.Promise.prototype['catch'] = window['Promise']['prototype']['catch'];
 
     lang.Promise.all = window['Promise']['all'];
     lang.Promise.race = window['Promise']['race'];
@@ -256,7 +256,7 @@ if (USE_AS_LIB) {
   } else {
     lang.Promise = lang.PromiseImpl;
     lang.Promise.prototype.then = lang.PromiseImpl.prototype.then;
-    lang.Promise.prototype.catch = lang.PromiseImpl.prototype.catch;
+    lang.Promise.prototype['catch'] = lang.PromiseImpl.prototype['catch'];
 
     lang.Promise.all = lang.PromiseImpl.all;
     lang.Promise.race = lang.PromiseImpl.race;
