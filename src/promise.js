@@ -11,12 +11,12 @@ goog.scope(function () {
    * @param {function(function(*),function(*))} executor
    * @constructor
    */
-  lang.PromiseImpl = function Promise(executor) {
+  lang.Promise = function Promise(executor) {
     /**
      * @private
-     * @type {lang.PromiseImpl.State}
+     * @type {lang.Promise.State}
      */
-    this.state = lang.PromiseImpl.State.PENDING;
+    this.state = lang.Promise.State.PENDING;
     this.value = undefined;
     this.deferred = [];
 
@@ -37,21 +37,21 @@ goog.scope(function () {
    * @private
    * @enum {number}
    */
-  lang.PromiseImpl.State = {
+  lang.Promise.State = {
     RESOLVED: 0,
     REJECTED: 1,
     PENDING: 2
   };
 
-  var PromiseImpl = lang.PromiseImpl;
+  var Promise = lang.Promise;
 
   /**
    * Create a rejected Promise.
    * @param {*} r The reason for rejection.
-   * @return {!lang.PromiseImpl}
+   * @return {!lang.Promise}
    */
-  PromiseImpl.reject = function (r) {
-    return new PromiseImpl(function (resolve, reject) {
+  Promise.reject = function (r) {
+    return new Promise(function (resolve, reject) {
       reject(r);
     });
   };
@@ -59,10 +59,10 @@ goog.scope(function () {
   /**
    * Create a resolved Promise.
    * @param {*} x The value to resolve the Promise with.
-   * @return {!lang.PromiseImpl}
+   * @return {!lang.Promise}
    */
-  PromiseImpl.resolve = function (x) {
-    return new PromiseImpl(function (resolve, reject) {
+  Promise.resolve = function (x) {
+    return new Promise(function (resolve, reject) {
       resolve(x);
     });
   };
@@ -72,10 +72,10 @@ goog.scope(function () {
    * @param {*} x The value to resolve the Promise with.
    * @private
    */
-  PromiseImpl.prototype.resolve = function resolve(x) {
+  Promise.prototype.resolve = function resolve(x) {
     var promise = this;
 
-    if (promise.state === PromiseImpl.State.PENDING) {
+    if (promise.state === Promise.State.PENDING) {
       if (x === promise) {
         throw new TypeError('Promise settled with itself.');
       }
@@ -106,7 +106,7 @@ goog.scope(function () {
         }
         return;
       }
-      promise.state = PromiseImpl.State.RESOLVED;
+      promise.state = Promise.State.RESOLVED;
       promise.value = x;
       promise.notify();
     }
@@ -117,15 +117,15 @@ goog.scope(function () {
    * @private
    * @param {*} reason The reason for rejection.
    */
-  PromiseImpl.prototype.reject = function reject(reason) {
+  Promise.prototype.reject = function reject(reason) {
     var promise = this;
 
-    if (promise.state === PromiseImpl.State.PENDING) {
+    if (promise.state === Promise.State.PENDING) {
       if (reason === promise) {
         throw new TypeError('Promise settled with itself.');
       }
 
-      promise.state = PromiseImpl.State.REJECTED;
+      promise.state = Promise.State.REJECTED;
       promise.value = reason;
       promise.notify();
     }
@@ -135,11 +135,11 @@ goog.scope(function () {
    * Notify all handlers of a change in state.
    * @private
    */
-  PromiseImpl.prototype.notify = function notify() {
+  Promise.prototype.notify = function notify() {
     var promise = this;
 
     async(function () {
-      if (promise.state !== PromiseImpl.State.PENDING) {
+      if (promise.state !== Promise.State.PENDING) {
         while (promise.deferred.length) {
           var deferred = promise.deferred.shift(),
               onResolved = deferred[0],
@@ -148,13 +148,13 @@ goog.scope(function () {
               reject = deferred[3];
 
           try {
-            if (promise.state === PromiseImpl.State.RESOLVED) {
+            if (promise.state === Promise.State.RESOLVED) {
               if (typeof onResolved === 'function') {
                 resolve(onResolved.call(undefined, promise.value));
               } else {
                 resolve(promise.value);
               }
-            } else if (promise.state === PromiseImpl.State.REJECTED) {
+            } else if (promise.state === Promise.State.REJECTED) {
               if (typeof onRejected === 'function') {
                 resolve(onRejected.call(undefined, promise.value));
               } else {
@@ -171,32 +171,32 @@ goog.scope(function () {
 
   /**
    * @param {function(*):*} onRejected Called when this Promise is rejected.
-   * @return {!lang.PromiseImpl}
+   * @return {!lang.Promise}
    */
-  PromiseImpl.prototype.catch = function (onRejected) {
+  Promise.prototype.catch_ = function (onRejected) {
     return this.then(undefined, onRejected);
   };
 
   /**
    * @param {function(*):*=} onResolved Called when this Promise is resolved.
    * @param {function(*):*=} onRejected Called when this Promise is rejected.
-   * @return {!lang.PromiseImpl}
+   * @return {!lang.Promise}
    */
-  PromiseImpl.prototype.then = function then(onResolved, onRejected) {
+  Promise.prototype.then = function then(onResolved, onRejected) {
     var promise = this;
 
-    return new PromiseImpl(function (resolve, reject) {
+    return new Promise(function (resolve, reject) {
       promise.deferred.push([onResolved, onRejected, resolve, reject]);
       promise.notify();
     });
   };
 
   /**
-   * @param {Array.<!lang.PromiseImpl>} iterable
-   * @return {!lang.PromiseImpl}
+   * @param {Array.<!lang.Promise>} iterable
+   * @return {!lang.Promise}
    */
-  PromiseImpl.all = function all(iterable) {
-    return new PromiseImpl(function (resolve, reject) {
+  Promise.all = function all(iterable) {
+    return new Promise(function (resolve, reject) {
       var count = 0,
           result = [];
 
@@ -222,45 +222,14 @@ goog.scope(function () {
   };
 
   /**
-   * @param {Array.<!lang.PromiseImpl>} iterable
-   * @return {!lang.PromiseImpl}
+   * @param {Array.<!lang.Promise>} iterable
+   * @return {!lang.Promise}
    */
-  PromiseImpl.race = function race(iterable) {
-    return new PromiseImpl(function (resolve, reject) {
+  Promise.race = function race(iterable) {
+    return new Promise(function (resolve, reject) {
       for (var i = 0; i < iterable.length; i += 1) {
         iterable[i].then(resolve, reject);
       }
     });
   };
 });
-
-
-/**
- * Set this to false if you're not using
- * Promis as a library with Closure Compiler.
- *
- * @define {boolean}
- */
-var USE_AS_LIB = true;
-
-if (USE_AS_LIB) {
-  if (window['Promise']) {
-    lang.Promise = window['Promise'];
-    lang.Promise.prototype.then = window['Promise']['prototype']['then'];
-    lang.Promise.prototype['catch'] = window['Promise']['prototype']['catch'];
-
-    lang.Promise.all = window['Promise']['all'];
-    lang.Promise.race = window['Promise']['race'];
-    lang.Promise.resolve = window['Promise']['resolve'];
-    lang.Promise.reject = window['Promise']['reject'];
-  } else {
-    lang.Promise = lang.PromiseImpl;
-    lang.Promise.prototype.then = lang.PromiseImpl.prototype.then;
-    lang.Promise.prototype['catch'] = lang.PromiseImpl.prototype.catch;
-
-    lang.Promise.all = lang.PromiseImpl.all;
-    lang.Promise.race = lang.PromiseImpl.race;
-    lang.Promise.resolve = lang.PromiseImpl.resolve;
-    lang.Promise.reject = lang.PromiseImpl.reject;
-  }
-}
