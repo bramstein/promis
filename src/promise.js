@@ -216,7 +216,7 @@ goog.scope(function () {
       }
 
       for (var i = 0; i < iterable.length; i += 1) {
-        iterable[i].then(resolver(i), reject);
+        Promise.resolve(iterable[i]).then(resolver(i), reject);
       }
     });
   };
@@ -228,7 +228,7 @@ goog.scope(function () {
   Promise.race = function race(iterable) {
     return new Promise(function (resolve, reject) {
       for (var i = 0; i < iterable.length; i += 1) {
-        iterable[i].then(resolve, reject);
+        Promise.resolve(iterable[i]).then(resolve, reject);
       }
     });
   };
