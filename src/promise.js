@@ -75,9 +75,13 @@ goog.scope(function () {
   Promise.prototype.resolve = function resolve(x) {
     var promise = this;
 
-    if (promise.state === Promise.State.PENDING) {
-      if (x === promise) {
-        throw new TypeError('Promise settled with itself.');
+    if (promise.state == Promise.State.PENDING) {
+      if (x == promise) {
+        if (DEBUG) {
+          throw new TypeError('Promise settled with itself.');
+        } else {
+          throw new TypeError();
+        }
       }
 
       var called = false;
@@ -85,7 +89,7 @@ goog.scope(function () {
       try {
         var then = x && x['then'];
 
-        if (x !== null && typeof x === 'object' && typeof then === 'function') {
+        if (x != null && typeof x == 'object' && typeof then == 'function') {
           then.call(x, function (x) {
             if (!called) {
               promise.resolve(x);
@@ -120,9 +124,13 @@ goog.scope(function () {
   Promise.prototype.reject = function reject(reason) {
     var promise = this;
 
-    if (promise.state === Promise.State.PENDING) {
-      if (reason === promise) {
-        throw new TypeError('Promise settled with itself.');
+    if (promise.state == Promise.State.PENDING) {
+      if (reason == promise) {
+        if (DEBUG) {
+          throw new TypeError('Promise settled with itself.');
+        } else {
+          throw new TypeError();
+        }
       }
 
       promise.state = Promise.State.REJECTED;
@@ -139,7 +147,7 @@ goog.scope(function () {
     var promise = this;
 
     async(function () {
-      if (promise.state !== Promise.State.PENDING) {
+      if (promise.state != Promise.State.PENDING) {
         while (promise.deferred.length) {
           var deferred = promise.deferred.shift(),
               onResolved = deferred[0],
@@ -148,14 +156,14 @@ goog.scope(function () {
               reject = deferred[3];
 
           try {
-            if (promise.state === Promise.State.RESOLVED) {
-              if (typeof onResolved === 'function') {
+            if (promise.state == Promise.State.RESOLVED) {
+              if (typeof onResolved == 'function') {
                 resolve(onResolved.call(undefined, promise.value));
               } else {
                 resolve(promise.value);
               }
-            } else if (promise.state === Promise.State.REJECTED) {
-              if (typeof onRejected === 'function') {
+            } else if (promise.state == Promise.State.REJECTED) {
+              if (typeof onRejected == 'function') {
                 resolve(onRejected.call(undefined, promise.value));
               } else {
                 reject(promise.value);
@@ -200,7 +208,7 @@ goog.scope(function () {
       var count = 0,
           result = [];
 
-      if (iterable.length === 0) {
+      if (iterable.length == 0) {
         resolve(result);
       }
 
@@ -209,7 +217,7 @@ goog.scope(function () {
           result[i] = x;
           count += 1;
 
-          if (count === iterable.length) {
+          if (count == iterable.length) {
             resolve(result);
           }
         };

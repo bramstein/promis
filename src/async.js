@@ -14,7 +14,7 @@ goog.scope(function () {
   lang.async = function (callback) {
     queue.push(callback);
 
-    if (queue.length === 1) {
+    if (queue.length == 1) {
       lang.async.async();
     }
   };
@@ -29,7 +29,7 @@ goog.scope(function () {
     }
   };
 
-  if (window['MutationObserver']) {
+  if (USE_MICROTASKS && window['MutationObserver']) {
     var el = document.createElement('div');
     var mo = new MutationObserver(lang.async.run);
 
